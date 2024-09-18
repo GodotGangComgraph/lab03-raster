@@ -10,9 +10,20 @@ config_version=5
 
 [application]
 
-config/name="New Game Project"
+config/name="Lab03Raster"
+run/main_scene="res://bresenham.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=50
+window/size/viewport_height=50
+window/size/window_width_override=600
+window/size/window_height_override=600
+window/stretch/mode="viewport"
+window/stretch/aspect="ignore"
+window/stretch/scale_mode="integer"
 
 [rendering]
 
