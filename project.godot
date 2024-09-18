@@ -13,14 +13,11 @@ config_version=5
 config/name="Lab03Raster"
 run/main_scene="res://bresenham.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
+boot_splash/bg_color=Color(0.219608, 0.294118, 0.439216, 1)
 config/icon="res://icon.svg"
 
 [display]
 
-window/size/viewport_width=50
-window/size/viewport_height=50
-window/size/window_width_override=600
-window/size/window_height_override=600
 window/stretch/mode="viewport"
 window/stretch/aspect="ignore"
 window/stretch/scale_mode="integer"
@@ -29,3 +26,4 @@ window/stretch/scale_mode="integer"
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+environment/defaults/default_clear_color=Color(0.313726, 0.462745, 0.529412, 1)
