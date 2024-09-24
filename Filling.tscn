@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://df6h8eohinyyv"]
 
-[ext_resource type="Script" path="res://Filling.gd" id="1_fsm4x"]
+[ext_resource type="Script" path="res://filling.gd" id="1_ord66"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -9,16 +9,21 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_fsm4x")
+script = ExtResource("1_ord66")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 0
-offset_right = 1152.0
-offset_bottom = 647.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
-custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer"]
 layout_mode = 2
@@ -27,16 +32,42 @@ layout_mode = 2
 custom_minimum_size = Vector2(600, 50)
 layout_mode = 2
 size_flags_vertical = 4
+selected = 0
+item_count = 2
+popup/item_0/text = "Обычная заливка"
+popup/item_1/text = "Другой тип заливки"
+popup/item_1/id = 1
 
 [node name="ColorPickerButton" type="ColorPickerButton" parent="VBoxContainer/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 4
+color = Color(0, 0, 0.894118, 1)
 
 [node name="Button" type="Button" parent="VBoxContainer/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(0, 45)
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-size_flags_horizontal = 3
 size_flags_vertical = 4
-text = "Fill"
+text = "CLEAR"
+
+[node name="Button3" type="Button" parent="VBoxContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_vertical = 4
+text = "FILL"
+
+[node name="Button2" type="Button" parent="VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "BACK TO MENU"
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[connection signal="popup_closed" from="VBoxContainer/MarginContainer/HBoxContainer/ColorPickerButton" to="." method="_on_color_picker_button_popup_closed"]
+[connection signal="pressed" from="VBoxContainer/MarginContainer/HBoxContainer/Button" to="." method="clear"]
+[connection signal="pressed" from="VBoxContainer/MarginContainer/HBoxContainer/Button3" to="." method="_on_fill_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/MarginContainer/HBoxContainer/Button2" to="." method="_on_button_2_pressed"]
