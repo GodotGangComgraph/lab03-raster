@@ -12,12 +12,14 @@ var image_texture: ImageTexture
 @onready var color_picker_button: ColorPickerButton = $VBoxContainer/MarginContainer/HBoxContainer/ColorPickerButton
 @onready var texture_rect: TextureRect = $VBoxContainer/TextureRect
 @onready var option_button: OptionButton = $VBoxContainer/MarginContainer/HBoxContainer/OptionButton
+@onready var fill_button: Button = $VBoxContainer/MarginContainer/HBoxContainer/Button4
 
 #const picture = preload("res://ФРУКТЫ.jpg")
 const picture = preload("res://RWAH.png")
 
 var picture_image: Image
-
+var image: Image = Image.new()
+var drawing = false
 
 func _ready():
 	picture_image = picture.get_image()
@@ -27,50 +29,53 @@ func _ready():
 	clear()
 
 
+func _on_texture_rect_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == 1 and event.pressed:
+			if not fill_button.button_pressed:
+				image.set_pixel(event.position.x, event.position.y, color_picker_button.color)
+				image_texture = ImageTexture.create_from_image(image)
+				drawing = true
+				texture_rect.texture = image_texture
+			else:
+				if option_button.selected == 0:
+					fill(event.position.x, event.position.y)
+				else:
+					fill_2(event.position.x, event.position.y)
+				texture_rect.texture = image_texture
+			
+		if event.button_index == 1 and not event.pressed:
+			drawing = false
+	
+	if event is InputEventMouseMotion and drawing:
+		image.set_pixel(event.position.x-1, event.position.y-1, color_picker_button.color)
+		image.set_pixel(event.position.x, event.position.y-1, color_picker_button.color)
+		image.set_pixel(event.position.x+1, event.position.y-1, color_picker_button.color)
+		image.set_pixel(event.position.x-1, event.position.y, color_picker_button.color)
+		image.set_pixel(event.position.x, event.position.y, color_picker_button.color)
+		image.set_pixel(event.position.x+1, event.position.y, color_picker_button.color)
+		image.set_pixel(event.position.x-1, event.position.y+1, color_picker_button.color)
+		image.set_pixel(event.position.x, event.position.y+1, color_picker_button.color)
+		image.set_pixel(event.position.x+1, event.position.y+1, color_picker_button.color)
+		
+		image_texture = ImageTexture.create_from_image(image)
+		texture_rect.texture = image_texture
+
 
 func clear():
-	var image = Image.new()
 	image = Image.create_empty(800, 600, false, Image.FORMAT_RGB8)
 	# Устанавливаем фон белого цвета
 	for x in range(800):
 		for y in range(600):
 			image.set_pixel(x, y, Color.WHITE)
 	
-	# Рисуем треугольник с вершинами (128, 50), (50, 200), (200, 200)
-	_draw_filled_triangle(image, Vector2(250, 50), Vector2(50, 500), Vector2(500, 500))
-	
 	# Создаем текстуру из изображения
 	image_texture = ImageTexture.create_from_image(image)
 	
-	# Добавляем изображение как Sprite на сцену
 	texture_rect.texture = image_texture
 
 
-# Функция для рисования треугольника на изображении
-func _draw_filled_triangle(image: Image, p1: Vector2, p2: Vector2, p3: Vector2):
-	var points = [p1, p2, p3]
-	points.sort_custom(func(a, b): return a.y < b.y)
-
-	var v1 = points[0]
-	var v2 = points[1]
-	var v3 = points[2]
-
-	_draw_triangle_edge(image, v1, v2)
-	_draw_triangle_edge(image, v2, v3)
-	_draw_triangle_edge(image, v1, v3)
-
-# Функция для рисования линии между двумя точками
-func _draw_triangle_edge(image: Image, start: Vector2, end: Vector2):
-	var direction = (end - start).normalized()
-	var length = start.distance_to(end) + 1
-	for i in range(int(length)):
-		var current_point = start + direction * i
-		image.set_pixelv(current_point, boundary_color)
-
-# Функция для заливки треугольника от стартовой точки
 func fill(start_x: int, start_y: int):
-	var image = image_texture.get_image()
-	
 	var start_color = image.get_pixel(start_x, start_y)
 	
 	if start_color == fill_color or start_color == boundary_color:
@@ -154,19 +159,6 @@ func _fill_scanline_2(image: Image, start_x: int, start_y: int):
 				stack.append(Vector2(new_x, y - 1))
 			if y < image.get_height() - 1 and image.get_pixel(new_x, y + 1) == Color.WHITE:
 				stack.append(Vector2(new_x, y + 1))
-
-
-# Обработка нажатия кнопки заливки
-func _on_fill_button_pressed():
-	var start_x = 300
-	var start_y = 300
-	
-	if option_button.selected == 0:
-		fill(start_x, start_y)
-	else:
-		fill_2(start_x, start_y)
-
-	texture_rect.texture = image_texture
 
 
 func _on_color_picker_button_popup_closed() -> void:
