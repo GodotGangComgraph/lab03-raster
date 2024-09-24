@@ -1,0 +1,55 @@
+[gd_scene load_steps=3 format=3 uid="uid://bt3f52lxojiil"]
+
+[ext_resource type="Script" path="res://triangle.gd" id="1_oh0hr"]
+[ext_resource type="Script" path="res://vertex.gd" id="2_kb0xl"]
+
+[node name="Triangle" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_oh0hr")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Vertex1" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.171875
+anchor_top = 0.240741
+anchor_right = 0.171875
+anchor_bottom = 0.240741
+offset_right = 40.0
+offset_bottom = 40.0
+text = "1"
+script = ExtResource("2_kb0xl")
+
+[node name="Vertex2" type="Button" parent="."]
+layout_mode = 0
+offset_left = 741.0
+offset_top = 128.0
+offset_right = 781.0
+offset_bottom = 168.0
+text = "2"
+script = ExtResource("2_kb0xl")
+
+[node name="Vertex3" type="Button" parent="."]
+layout_mode = 0
+offset_left = 489.0
+offset_top = 462.0
+offset_right = 529.0
+offset_bottom = 502.0
+text = "3"
+script = ExtResource("2_kb0xl")
+
+[connection signal="button_down" from="Vertex1" to="Vertex1" method="_on_button_down"]
+[connection signal="button_up" from="Vertex1" to="Vertex1" method="_on_button_up"]
+[connection signal="button_down" from="Vertex2" to="Vertex2" method="_on_button_down"]
+[connection signal="button_up" from="Vertex2" to="Vertex2" method="_on_button_up"]
+[connection signal="button_down" from="Vertex3" to="Vertex3" method="_on_button_down"]
+[connection signal="button_up" from="Vertex3" to="Vertex3" method="_on_button_up"]
