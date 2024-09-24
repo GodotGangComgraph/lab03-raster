@@ -87,9 +87,13 @@ func _draw():
 			y = y + grad
 
 
-func _on_item_list_item_selected(index: int) -> void:
+func _on_item_list_item_selected(_index: int) -> void:
 	queue_redraw()
 
 
-func _on_v_scroll_bar_value_changed(value: float) -> void:
+func _on_v_scroll_bar_value_changed(_value: float) -> void:
 	queue_redraw()
+
+
+func _on_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://menu.tscn")

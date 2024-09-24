@@ -1,0 +1,47 @@
+[gd_scene load_steps=2 format=3 uid="uid://bcwel5mc7qpog"]
+
+[ext_resource type="Script" path="res://menu.gd" id="1_litvq"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_litvq")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 400
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 400
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Fill" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Fill"
+
+[node name="Lines" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Lines"
+
+[node name="Triangle" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Triangle Gradient"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Fill" to="." method="_on_fill_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Lines" to="." method="_on_lines_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Triangle" to="." method="_on_triangle_pressed"]
