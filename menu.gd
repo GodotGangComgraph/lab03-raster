@@ -1,0 +1,13 @@
+extends Control
+
+
+func _on_lines_pressed() -> void:
+	get_tree().change_scene_to_file("res://bresenham.tscn")
+
+
+func _on_triangle_pressed() -> void:
+	get_tree().change_scene_to_file("res://triangle.tscn")
+
+
+func _on_fill_pressed() -> void:
+	pass # Replace with function body.

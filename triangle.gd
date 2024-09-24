@@ -7,12 +7,9 @@ extends Control
 @onready var vertex_2: Button = $Vertex2
 @onready var vertex_3: Button = $Vertex3
 
-
-@export var colors = [
-	Color(1, 0, 0),
-	Color(0, 1, 0),
-	Color(0, 0, 1)
-]
+@export var color_1 = Color(1, 0, 0)
+@export var color_2 = Color(0, 1, 0)
+@export var color_3 = Color(0, 0, 1)
 
 
 func _ready():
@@ -44,8 +41,12 @@ func draw_triangle():
 			var lambda3 = 1.0 - lambda1 - lambda2
 			
 			if lambda1 >= 0 and lambda2 >= 0 and lambda3 >= 0:
-				var interpolated_color = colors[0] * lambda1 + colors[1] * lambda2 + colors[2] * lambda3
+				var interpolated_color = color_1 * lambda1 + color_2 * lambda2 + color_3 * lambda3
 				image.set_pixel(x, y, interpolated_color)
 	
 	var texture = ImageTexture.create_from_image(image)
 	texture_rect.texture = texture
+
+
+func _on_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://menu.tscn")

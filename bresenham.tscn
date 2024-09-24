@@ -64,3 +64,4 @@ text = "BACK TO MENU"
 
 [connection signal="item_selected" from="VBoxContainer/MarginContainer/HBoxContainer/ItemList" to="." method="_on_item_list_item_selected"]
 [connection signal="value_changed" from="VBoxContainer/MarginContainer/HBoxContainer/VScrollBar" to="." method="_on_v_scroll_bar_value_changed"]
+[connection signal="pressed" from="VBoxContainer/MarginContainer/HBoxContainer/Button" to="." method="_on_button_pressed"]
