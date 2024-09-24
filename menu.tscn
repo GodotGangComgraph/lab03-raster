@@ -32,6 +32,11 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Fill"
 
+[node name="Border" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Border Highlight"
+
 [node name="Lines" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
@@ -43,5 +48,6 @@ theme_override_font_sizes/font_size = 30
 text = "Triangle Gradient"
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Fill" to="." method="_on_fill_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Border" to="." method="_on_border_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Lines" to="." method="_on_lines_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Triangle" to="." method="_on_triangle_pressed"]

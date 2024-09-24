@@ -61,6 +61,7 @@ ok_button_text = "Open"
 file_mode = 0
 use_native_dialog = true
 
+[connection signal="pressed" from="VBoxContainer/MarginContainer/HBoxContainer/Button2" to="." method="_on_button_2_pressed"]
 [connection signal="pressed" from="VBoxContainer/MarginContainer/HBoxContainer/Button" to="." method="_on_button_pressed"]
 [connection signal="color_changed" from="VBoxContainer/MarginContainer/HBoxContainer/ColorPickerButton" to="." method="_on_color_picker_button_color_changed"]
 [connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]

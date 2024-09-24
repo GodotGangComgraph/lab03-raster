@@ -76,3 +76,7 @@ func _on_file_dialog_file_selected(path: String) -> void:
 	queue_redraw()
 	image_path = path
 	draw_boundary()
+
+
+func _on_button_2_pressed() -> void:
+	get_tree().change_scene_to_file("res://menu.tscn")

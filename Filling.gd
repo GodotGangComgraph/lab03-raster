@@ -14,15 +14,13 @@ var image_texture: ImageTexture
 @onready var option_button: OptionButton = $VBoxContainer/MarginContainer/HBoxContainer/OptionButton
 @onready var fill_button: Button = $VBoxContainer/MarginContainer/HBoxContainer/Button4
 
-#const picture = preload("res://ФРУКТЫ.jpg")
-const picture = preload("res://RWAH.png")
-
 var picture_image: Image
 var image: Image = Image.new()
 var drawing = false
 
+var back_color: Color
+
 func _ready():
-	picture_image = picture.get_image()
 	
 	fill_color = color_picker_button.color
 	
@@ -31,6 +29,7 @@ func _ready():
 
 func _on_texture_rect_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
+		back_color = texture_rect.texture.get_image().get_pixelv(event.position)
 		if event.button_index == 1 and event.pressed:
 			if not fill_button.button_pressed:
 				image.set_pixel(event.position.x, event.position.y, color_picker_button.color)
@@ -71,7 +70,7 @@ func clear():
 	
 	# Создаем текстуру из изображения
 	image_texture = ImageTexture.create_from_image(image)
-	
+	back_color = Color.WHITE
 	texture_rect.texture = image_texture
 
 
@@ -119,7 +118,6 @@ func _fill_scanline(image: Image, start_x: int, start_y: int, start_color: Color
 
 # Функция для заливки треугольника от стартовой точки
 func fill_2(start_x: int, start_y: int):
-	var image = image_texture.get_image()
 	
 	_fill_scanline_2(image, start_x, start_y)
 	
@@ -144,20 +142,20 @@ func _fill_scanline_2(image: Image, start_x: int, start_y: int):
 		
 		# Заливка по горизонтали (влево и вправо)
 		var left = x
-		while left > 0 and image.get_pixel(left - 1, y) == Color.WHITE:
+		while left > 0 and image.get_pixel(left - 1, y) == back_color:
 			left -= 1
 			image.set_pixel(left, y, picture_image.get_pixel(left % image_x, y % image_y))
 
 		var right = x
-		while right < image.get_width() - 1 and image.get_pixel(right + 1, y) == Color.WHITE:
+		while right < image.get_width() - 1 and image.get_pixel(right + 1, y) == back_color:
 			right += 1
 			image.set_pixel(right, y, picture_image.get_pixel(right % image_x, y % image_y))
 
 		# Добавляем верхние и нижние пиксели в стек
 		for new_x in range(left, right + 1):
-			if y > 0 and image.get_pixel(new_x, y - 1) == Color.WHITE:
+			if y > 0 and image.get_pixel(new_x, y - 1) == back_color:
 				stack.append(Vector2(new_x, y - 1))
-			if y < image.get_height() - 1 and image.get_pixel(new_x, y + 1) == Color.WHITE:
+			if y < image.get_height() - 1 and image.get_pixel(new_x, y + 1) == back_color:
 				stack.append(Vector2(new_x, y + 1))
 
 
@@ -175,4 +173,4 @@ func _on_button_3_pressed() -> void:
 
 
 func _on_file_dialog_file_selected(path: String) -> void:
-	pass # Replace with function body.
+	picture_image = Image.load_from_file(path)
