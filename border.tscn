@@ -26,43 +26,41 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer"]
+layout_direction = 3
 layout_mode = 2
 
-[node name="OptionButton" type="OptionButton" parent="VBoxContainer/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(600, 50)
+[node name="Button2" type="Button" parent="VBoxContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 8
 size_flags_vertical = 4
-selected = 0
-item_count = 2
-popup/item_0/text = "Обычная заливка"
-popup/item_1/text = "Другой тип заливки"
-popup/item_1/id = 1
-
-[node name="ColorPickerButton" type="ColorPickerButton" parent="VBoxContainer/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-size_flags_horizontal = 2
-size_flags_vertical = 4
-color = Color(0, 0, 0.894118, 1)
+text = "BACK TO MENU"
 
 [node name="Button" type="Button" parent="VBoxContainer/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+size_flags_horizontal = 8
 size_flags_vertical = 4
-text = "CLEAR"
+text = "LOAD IMAGE"
 
-[node name="Button3" type="Button" parent="VBoxContainer/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-size_flags_vertical = 4
-text = "FILL"
-
-[node name="Button2" type="Button" parent="VBoxContainer/MarginContainer/HBoxContainer"]
+[node name="ColorPickerButton" type="ColorPickerButton" parent="VBoxContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-text = "BACK TO MENU"
+color = Color(0, 0, 0.894118, 1)
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
+expand_mode = 3
+stretch_mode = 2
+
+[node name="FileDialog" type="FileDialog" parent="."]
+title = "Open a File"
+ok_button_text = "Open"
+file_mode = 0
+use_native_dialog = true
+
+[connection signal="pressed" from="VBoxContainer/MarginContainer/HBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="color_changed" from="VBoxContainer/MarginContainer/HBoxContainer/ColorPickerButton" to="." method="_on_color_picker_button_color_changed"]
+[connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]
