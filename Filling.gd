@@ -167,3 +167,12 @@ func _on_color_picker_button_popup_closed() -> void:
 
 func _on_button_2_pressed() -> void:
 	get_tree().change_scene_to_file("res://menu.tscn")
+
+@onready var file_dialog: FileDialog = $FileDialog
+func _on_button_3_pressed() -> void:
+	file_dialog.popup()
+	
+
+
+func _on_file_dialog_file_selected(path: String) -> void:
+	pass # Replace with function body.

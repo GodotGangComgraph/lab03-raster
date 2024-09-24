@@ -45,6 +45,12 @@ size_flags_horizontal = 2
 size_flags_vertical = 4
 color = Color(0, 0, 0.894118, 1)
 
+[node name="Button3" type="Button" parent="VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "LOAD IMAGE"
+
 [node name="Button" type="Button" parent="VBoxContainer/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
@@ -68,7 +74,15 @@ text = "BACK TO MENU"
 layout_mode = 2
 size_flags_horizontal = 0
 
+[node name="FileDialog" type="FileDialog" parent="."]
+title = "Open a File"
+ok_button_text = "Open"
+file_mode = 0
+use_native_dialog = true
+
 [connection signal="popup_closed" from="VBoxContainer/MarginContainer/HBoxContainer/ColorPickerButton" to="." method="_on_color_picker_button_popup_closed"]
+[connection signal="pressed" from="VBoxContainer/MarginContainer/HBoxContainer/Button3" to="." method="_on_button_3_pressed"]
 [connection signal="pressed" from="VBoxContainer/MarginContainer/HBoxContainer/Button" to="." method="clear"]
 [connection signal="pressed" from="VBoxContainer/MarginContainer/HBoxContainer/Button2" to="." method="_on_button_2_pressed"]
 [connection signal="gui_input" from="VBoxContainer/TextureRect" to="." method="_on_texture_rect_gui_input"]
+[connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]
